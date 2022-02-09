@@ -1,0 +1,27 @@
+name: e_shop
+description: A new Flutter project.
+publish_to: none
+version: 1.0.0+1
+environment: {sdk: '>=2.12.0 <3.0.0'}
+dependencies:
+  flutter: {sdk: flutter}
+  cupertino_icons: ^1.0.4
+  google_sign_in: ^5.2.3
+  firebase_auth: ^3.3.5
+  firebase_core: ^1.11.0
+  get: ^4.6.1
+  get_storage: ^2.0.3
+  google_fonts: ^2.2.0
+  http: ^0.13.4
+  badges: ^2.0.2
+  smooth_page_indicator: ^1.0.0+2
+  carousel_slider: ^4.0.0
+  flutter_rating_bar: ^4.0.0
+  readmore: null
+dev_dependencies:
+  flutter_test: {sdk: flutter}
+  flutter_lints: ^1.0.4
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
