@@ -8,6 +8,6 @@ class ProductBinding extends Bindings {
   void dependencies() {
     Get.put(ProductController());
     Get.lazyPut(() => CartController());
-    Get.put(CategoryController());
+    Get.put(CategoryController() , permanent: true);
   }
 }

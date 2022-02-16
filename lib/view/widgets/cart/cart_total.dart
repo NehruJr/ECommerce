@@ -1,9 +1,11 @@
+import 'package:e_shop/config/routes.dart';
 import 'package:e_shop/config/theme.dart';
 import 'package:e_shop/logic/controllers/cart_controller.dart';
 import 'package:e_shop/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class CartTotal extends StatelessWidget {
   CartTotal({Key? key}) : super(key: key);
@@ -39,7 +41,9 @@ class CartTotal extends StatelessWidget {
             child: SizedBox(
               height: 60,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(RoutesNames.paymentScreen);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [

@@ -17,10 +17,13 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   carousel_slider: ^4.0.0
   flutter_rating_bar: ^4.0.0
+  geolocator: ^8.0.1
+  geocoding: ^2.0.1
   readmore: null
 dev_dependencies:
   flutter_test: {sdk: flutter}
   flutter_lints: ^1.0.4
+
 flutter:
   uses-material-design: true
   assets:

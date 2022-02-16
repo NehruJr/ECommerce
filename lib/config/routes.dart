@@ -2,6 +2,7 @@ import 'package:e_shop/logic/binding/auth_binding.dart';
 import 'package:e_shop/logic/binding/main_binding.dart';
 import 'package:e_shop/logic/binding/product_binding.dart';
 import 'package:e_shop/view/screens/cart_screen/cart_screen.dart';
+import 'package:e_shop/view/screens/payment_screen/payment.dart';
 import 'package:e_shop/view/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -49,7 +50,12 @@ class AppRoute {
     bindings: [
       AuthBinding(),
       ProductBinding(),
-    ])
+    ]),
+    GetPage(name: RoutesNames.paymentScreen, page: ()=> PaymentScreen() ,bindings: [
+      MainBinding(),
+      AuthBinding() ,
+      ProductBinding(),
+    ]),
   ];
 }
 
@@ -61,4 +67,6 @@ class RoutesNames {
   static const mainScreen = '/mainScreen';
   static const settingsScreen = '/settingsScreen';
   static const cartScreen = '/cartScreen';
+  static const paymentScreen = '/paymentScreen';
+
 }
