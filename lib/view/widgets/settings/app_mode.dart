@@ -20,7 +20,7 @@ class AppMode extends StatelessWidget {
           customIcon(
             icon: Icons.dark_mode,
             color: kDarkSettings,
-            title: "Dark Mode".tr,
+            title: "Dark Mode".tr ,
           ),
           Switch(
             activeTrackColor: Get.isDarkMode ? kPinkClr : kMainColor,

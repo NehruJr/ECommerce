@@ -1,5 +1,6 @@
 import 'package:e_shop/data/model/product_model.dart';
 import 'package:e_shop/logic/controllers/product_controller.dart';
+import 'package:e_shop/view/screens/product_details/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -54,7 +55,7 @@ class FavouriteScreen extends StatelessWidget {
                     imageUrl: favourites.image,
                     productTitle: favourites.title,
                     productPrice: favourites.price,
-                    productId: favourites.id);
+                    productId: favourites.id, productModel: favourites);
               },
               itemCount: controller.favouriteProducts.length,
             );
@@ -65,6 +66,7 @@ class FavouriteScreen extends StatelessWidget {
   }
 
   Widget buildFavItems({
+    required ProductModel productModel,
     required String imageUrl,
     required String productTitle,
     required double productPrice,
@@ -72,68 +74,75 @@ class FavouriteScreen extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: SizedBox(
-        width: double.infinity,
-        height: 100,
-        child: Row(
-          children: [
-            SizedBox(
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
+      child: InkWell(
+        onTap: (){
+          Get.offAll(() => ProductDetailsScreen(
+            productModel: productModel,
+          ));
+        },
+        child: SizedBox(
+          width: double.infinity,
+          height: 100,
+          child: Row(
+            children: [
+              SizedBox(
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              flex: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productTitle,
-                    style: const TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '\$ $productPrice',
-                    style: const TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+              const SizedBox(
+                width: 15,
               ),
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {
-                controller.manageFavourites(productId);
-              },
-              icon: const Icon(
-                Icons.highlight_remove_outlined,
-                size: 30,
+              Expanded(
+                flex: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      productTitle,
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      '\$ $productPrice',
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  controller.manageFavourites(productId);
+                },
+                icon: const Icon(
+                  Icons.highlight_remove_outlined,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

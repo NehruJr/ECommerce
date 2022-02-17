@@ -22,19 +22,6 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
     return Obx(() {
   return Column(
       children: [
-        buildRadioContainer(
-            value: 1,
-            color: radioIsSelected ? Colors.grey.shade300 : Colors.white,
-            address: 'Egypt',
-            onChanged: (int? value) {
-              setState(() {
-                radioContainerIndex = value!;
-                radioIsSelected = !radioIsSelected;
-              });
-            },
-            name: authController.userDisplayName.value,
-            phone: 0109820809,
-            title: 'E Commerce'),
         const SizedBox(
           height: 10,
         ),
@@ -117,7 +104,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
               ),
               Row(
                 children: [
-                  Text('🇪🇬 +020'),
+                  const Text('🇪🇬 +020'),
                   TextUtils(
                       text: phone.toString(),
                       color: Colors.black,
@@ -127,54 +114,74 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
                     width: 120,
                   ),
                   InkWell(
-                    child: Icon(Icons.edit),
+                    child: const Icon(Icons.edit),
                     onTap: () {
                       Get.defaultDialog(
-                        title: 'Enter Your Phone Number',
+                        title: 'Edit your information',
                         backgroundColor: Colors.white,
                         radius: 10,
-                        content: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: TextField(
-                            cursorColor: Colors.black,
-                            keyboardType: TextInputType.text,
-                            controller: phoneNumberController,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              focusColor: Colors.red,
-                              prefixIcon: const Icon(
-                                Icons.phone,
-                                color: Colors.grey,
-                              ),
-                              suffixIcon:phoneNumberController.text.isNotEmpty ?null : IconButton(
-                                onPressed: (){
-                                  phoneNumberController.clear();
-                                },
-                                icon: const Icon(Icons.clear , color: Colors.black,),
-                              ),
-                              hintText: 'Enter you\'re Phone Number ',
-                              hintStyle: const TextStyle(
-                                color: Colors.black45,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                        content: SizedBox(
+                          height: 120,
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    autofocus: false,
+                                    enableInteractiveSelection: false,
+                                    cursorColor: Colors.black,
+                                    keyboardType: TextInputType.number,
+                                    controller: phoneNumberController,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      focusColor: Colors.red,
+                                      prefixIcon: const Icon(
+                                        Icons.phone,
+                                        color: Colors.grey,
+                                      ),
+                                      suffixIcon:phoneNumberController.text.isNotEmpty ?null : IconButton(
+                                        onPressed: (){
+                                          phoneNumberController.clear();
+                                        },
+                                        icon: const Icon(Icons.clear , color: Colors.black,),
+                                      ),
+                                      hintText: 'Enter you\'re Phone Number ',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: TextButton(
+                                    child: const Text('Update my location'),
+                                    onPressed: (){
+                                      paymentController.updateAddress();
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -186,12 +193,11 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
                           Get.toNamed(RoutesNames.paymentScreen);
                         },
                         onConfirm: () {
-                          if(phoneNumberController.text.length ==11 || phoneNumberController.text.length ==10) {
                             paymentController.phoneNumber.value =
                                 int.parse(phoneNumberController.text);
                             paymentController.updateAddress();
                             Get.back();
-                          }
+
                         },
                       );
                     },

@@ -68,7 +68,7 @@ class ItemsCard extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: InkWell(
         onTap: () {
-          Get.to(() => ProductDetailsScreen(
+          Get.offAll(() => ProductDetailsScreen(
                 productModel: productModel,
               ));
         },

@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:pay/pay.dart';
 
 class PaymentController extends GetxController {
   RxInt phoneNumber = 0.obs;
   var address = ''.obs;
+  var paymentItems = <PaymentItem>[].obs;
 
   Future<void> updateAddress() async{
     Position position = await _determinePosition();
@@ -37,5 +39,23 @@ class PaymentController extends GetxController {
     }
 
     return await Geolocator.getCurrentPosition();
+  }
+
+
+  void makeGooglePay({required String amount, required String label}) {
+    paymentItems.add(
+      PaymentItem(
+        label: label,
+        amount: amount,
+        status: PaymentItemStatus.final_price,
+      ),
+    );
+
+    update();
+  }
+
+  void removeGooglePay() {
+    paymentItems.clear();
+    update();
   }
 }

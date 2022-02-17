@@ -1,6 +1,12 @@
 import 'package:e_shop/config/theme.dart';
+import 'package:e_shop/logic/controllers/auth_controller.dart';
+import 'package:e_shop/logic/controllers/cart_controller.dart';
+import 'package:e_shop/logic/controllers/payment_controller.dart';
 import 'package:e_shop/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 class PaymentMethods extends StatefulWidget {
   const PaymentMethods({Key? key}) : super(key: key);
@@ -11,6 +17,9 @@ class PaymentMethods extends StatefulWidget {
 
 class _PaymentMethodsState extends State<PaymentMethods> {
   int radioPaymentIndex = 1;
+  final paymentController = Get.find<PaymentController>();
+  final cartController = Get.find<CartController>();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +37,23 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                   radioPaymentIndex = value!;
                 });
               }),
+          GetBuilder<PaymentController>(
+            builder: (_) {
+              return buildRadioPayment(
+                  paymentMethodName: 'Google pay',
+                  imagePath: 'assets/images/google.png',
+                  scale: 0.8,
+                  value: 2,
+                  onChange: (int? value) {
+                    setState(() {
+                      radioPaymentIndex = value!;
+                    });
+                    paymentController.makeGooglePay(amount: cartController.totalPrice.toString(), label: authController.userDisplayName.value);
+                  });
+            },
+          ),
           buildRadioPayment(
-              paymentMethodName: 'Paypal',
-              imagePath: 'assets/images/google.png',
-              scale: 0.8,
-              value: 2,
-              onChange: (int? value) {
-                setState(() {
-                  radioPaymentIndex = value!;
-                });
-              }),
-          buildRadioPayment(
-              paymentMethodName: 'Paypal',
+              paymentMethodName: 'Credit Card',
               imagePath: 'assets/images/credit.png',
               scale: 0.7,
               value: 3,
@@ -48,36 +62,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                   radioPaymentIndex = value!;
                 });
               }),
-          const SizedBox(
-            height: 30,
-          ),
-          Center(
-            child: TextUtils(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              text: 'TOTAL \$',
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: SizedBox(
-              height: 50,
-              width: 150,
-              child: ElevatedButton(onPressed: () {}, style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 0.0,
-                primary: kMainColor
-              ),child: const Text('Pay Now' , style: TextStyle(
-                fontSize: 22,
-                color: Colors.white
-              ),)),
-            ),
-          )
+
         ],
       ),
     );

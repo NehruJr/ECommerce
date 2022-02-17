@@ -13,6 +13,7 @@ class SearchBar extends StatelessWidget {
     return GetBuilder<ProductController>(
       builder: (_) {
         return TextField(
+          autofocus: false,
           cursorColor: Colors.black,
           keyboardType: TextInputType.text,
           controller: controller.searchTextController,
